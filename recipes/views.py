@@ -8,4 +8,4 @@ def index(request):
 
 
 def recipe(request):
-    return render(request, 'recipe.html')
+    return render(request, 'recipes.html')
