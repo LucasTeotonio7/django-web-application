@@ -4,7 +4,17 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return render(request, 'index.html')
+    recipes = {
+        1: 'lasanha',
+        2: 'sopa de legumes',
+        3: 'sorvete',
+        4: 'bolo de morango ^^'
+    }
+
+    data = {
+        'recipes_name' : recipes
+    }
+    return render(request, 'index.html', context=data)
 
 
 def recipe(request):
