@@ -1,19 +1,11 @@
 from django.shortcuts import render
-
-from django.http import HttpResponse
+from .models import Recipe
 
 
 def index(request):
-    recipes = {
-        1: 'lasanha',
-        2: 'sopa de legumes',
-        3: 'sorvete',
-        4: 'bolo de morango ^^'
-    }
+    recipes = Recipe.objects.all()
+    data = {'recipes' : recipes}
 
-    data = {
-        'recipes_name' : recipes
-    }
     return render(request, 'index.html', context=data)
 
 
