@@ -11,6 +11,7 @@ class Recipe(models.Model):
     cooking_time = models.IntegerField(verbose_name='Tempo de preparo')
     recipe_yield  = models.CharField(verbose_name='Rendimento', max_length=100)
     category  = models.CharField(verbose_name='Categoria', max_length=100)
+    image = models.ImageField(upload_to='images/%d/%m/%Y/', null=True, blank =True)
     published = models.BooleanField(verbose_name='Publicada', default=False)
     created_at = models.DateTimeField(verbose_name='Criado em', default=datetime.now, blank=True)
     created_by = models.ForeignKey(User, verbose_name='Criado por', on_delete=models.CASCADE)
