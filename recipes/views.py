@@ -3,7 +3,7 @@ from .models import Recipe
 
 
 def index(request):
-    recipes = Recipe.objects.filter(published=True)
+    recipes = Recipe.objects.filter(published=True).order_by('-created_at')
     data = {'recipes' : recipes}
 
     return render(request, 'index.html', context=data)
