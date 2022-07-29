@@ -50,7 +50,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="receipe-slider owl-carousel">
+                        {% if recipe.image %}
+                        <img src="{{ recipe.image.url }}" alt="">
+                        {% else %}
                         <img src="{% static 'img/bg-img/tomate_banner.jpg' %}">
+                        {% endif %}     
                     </div>
                 </div>
             </div>
