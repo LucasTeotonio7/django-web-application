@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from users.models import User
 
 # Create your models here.
 
@@ -11,3 +12,4 @@ class Recipe(models.Model):
     recipe_yield  = models.CharField(verbose_name='Rendimento', max_length=100)
     category  = models.CharField(verbose_name='Categoria', max_length=100)
     created_at = models.DateTimeField(verbose_name='Criado em', default=datetime.now, blank=True)
+    created_by = models.ForeignKey(User, verbose_name='Criado por', on_delete=models.CASCADE)
