@@ -3,7 +3,10 @@ from .models import Recipe
 
 
 def index(request):
+        
     recipes = Recipe.objects.filter(published=True).order_by('-created_at')
+    if 'search' in request.GET:
+        recipes = recipes.filter(name__icontains=request.GET['search'])
     data = {'recipes' : recipes}
 
     return render(request, 'index.html', context=data)
