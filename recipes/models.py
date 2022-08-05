@@ -15,3 +15,6 @@ class Recipe(models.Model):
     published = models.BooleanField(verbose_name='Publicada', default=False)
     created_at = models.DateTimeField(verbose_name='Criado em', default=datetime.now, blank=True)
     created_by = models.ForeignKey(User, verbose_name='Criado por', on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f'{self.name}'
