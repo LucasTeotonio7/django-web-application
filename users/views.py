@@ -4,13 +4,13 @@ from django.shortcuts import render
 
 
 def users_registration(request):
+    return render(request, 'users/registration.html')
+
+def users_login(request):
+    return render(request, 'users/login.html')
+
+def users_logout(request):
     pass
 
-def users_login(request, parameter_list):
-    pass
-
-def users_logout(request, parameter_list):
-    pass
-
-def dashboard(request, parameter_list):
+def dashboard(request):
     pass
