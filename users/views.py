@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
+from django.contrib import auth
 User = get_user_model()
 
 
@@ -46,10 +47,28 @@ def users_registration(request):
     return render(request, 'users/registration.html')
 
 def users_login(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        if email == '' or password == '':
+            print('Os campos email e senha não podem ficar em branco')
+            return redirect('users_login')
+        if User.objects.filter(email=email).exists():
+            username = User.objects.filter(email=email).values_list('username', flat=True).first()
+            user = auth.authenticate(request, username=username, password=password)
+
+            if user is not None:
+                auth.login(request, user)
+                print('usuário logado')
+            else:
+                return redirect('users_login')
+        return redirect('users_dashboard')
+
+    
     return render(request, 'users/login.html')
 
 def users_logout(request):
     pass
 
 def dashboard(request):
-    pass
+    return render(request, 'users/dashboard.html')
