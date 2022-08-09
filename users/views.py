@@ -75,3 +75,8 @@ def dashboard(request):
     if request.user.is_authenticated:
         return render(request, 'users/dashboard.html')
     return redirect('index')
+
+def create_recipe(request):
+    if request.user.is_authenticated:
+        return render(request, 'users/create_recipe.html')
+    return redirect('index')
