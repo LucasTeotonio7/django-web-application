@@ -15,15 +15,15 @@ def users_registration(request):
         password = request.POST['password']
         password2 = request.POST['password2']
 
-        if not name.strip():
+        if empty_field(name):
             print('o campo nome não pode ser nulo')
             return redirect('users_registration')
 
-        if not last_name.strip():
+        if empty_field(last_name):
             print('o campo sobrenome não pode ser nulo')
             return redirect('users_registration')
 
-        if not email.strip():
+        if empty_field(email):
             print('o campo email não pode ser nulo')
             return redirect('users_registration')
 
@@ -33,6 +33,10 @@ def users_registration(request):
 
         if User.objects.filter(email=email).exists():
              messages.error(request, 'Email já cadastrado')
+             return redirect('users_registration')
+
+        if User.objects.filter(username=username).exists():
+             messages.error(request, 'Nome de usuário já cadastrado')
              return redirect('users_registration')
 
         user = User.objects.create_user(
@@ -52,8 +56,8 @@ def users_login(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        if email == '' or password == '':
-            print('Os campos email e senha não podem ficar em branco')
+        if empty_field(email) or empty_field(password):
+            messages.error(request, 'Os campos email e senha não podem ficar em branco')
             return redirect('users_login')
         if User.objects.filter(email=email).exists():
             username = User.objects.filter(email=email).values_list('username', flat=True).first()
@@ -103,3 +107,7 @@ def create_recipe(request):
     if request.method == 'GET' and request.user.is_authenticated:
         return render(request, 'users/create_recipe.html')
     return redirect('index')
+
+
+def empty_field(field):
+    return not field.strip()
