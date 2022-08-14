@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
-from django.contrib import auth
+from django.contrib import auth, messages
 User = get_user_model()
 
 from recipes.models import Recipe
@@ -28,22 +28,22 @@ def users_registration(request):
             return redirect('users_registration')
 
         if password != password2:
-            print('As senhas não são iguais')
+            messages.error(request, 'As senhas não são iguais')
             return redirect('users_registration')
-        
+
         if User.objects.filter(email=email).exists():
-             print('Email já cadastrado')
+             messages.error(request, 'Email já cadastrado')
              return redirect('users_registration')
-        
+
         user = User.objects.create_user(
-            username=username, 
-            name=name, 
-            last_name=last_name, 
-            email=email, 
+            username=username,
+            name=name,
+            last_name=last_name,
+            email=email,
             password=password
         )
         user.save()
-        print('Usuário cadastrado com sucesso!')
+        messages.success(request, 'Usuário cadastrado com sucesso!')
 
         return redirect('users_login')
     return render(request, 'users/registration.html')
@@ -66,7 +66,7 @@ def users_login(request):
                 return redirect('users_login')
         return redirect('users_dashboard')
 
-    
+
     return render(request, 'users/login.html')
 
 def users_logout(request):
@@ -89,13 +89,13 @@ def create_recipe(request):
         category = request.POST['category']
         image = request.FILES['image']
         Recipe.objects.create(
-            name=name, 
-            ingredients=ingredients, 
-            method_preparation=method_preparation, 
-            cooking_time=cooking_time, 
-            recipe_yield=recipe_yield, 
-            category=category, 
-            image=image, 
+            name=name,
+            ingredients=ingredients,
+            method_preparation=method_preparation,
+            cooking_time=cooking_time,
+            recipe_yield=recipe_yield,
+            category=category,
+            image=image,
             created_by=request.user)
         redirect('users_dashboard')
 
