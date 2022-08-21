@@ -83,31 +83,5 @@ def dashboard(request):
         return render(request, 'users/dashboard.html', context={"recipes": recipes})
     return redirect('index')
 
-def create_recipe(request):
-    if request.method == 'POST':
-        name = request.POST['name']
-        ingredients = request.POST['ingredients']
-        method_preparation = request.POST['method_preparation']
-        cooking_time = request.POST['cooking_time']
-        recipe_yield = request.POST['recipe_yield']
-        category = request.POST['category']
-        image = request.FILES['image']
-        Recipe.objects.create(
-            name=name,
-            ingredients=ingredients,
-            method_preparation=method_preparation,
-            cooking_time=cooking_time,
-            recipe_yield=recipe_yield,
-            category=category,
-            image=image,
-            created_by=request.user)
-        redirect('users_dashboard')
-
-
-    if request.method == 'GET' and request.user.is_authenticated:
-        return render(request, 'users/recipe_form.html')
-    return redirect('index')
-
-
 def empty_field(field):
     return not field.strip()
