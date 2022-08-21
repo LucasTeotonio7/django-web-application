@@ -105,7 +105,7 @@ def create_recipe(request):
 
 
     if request.method == 'GET' and request.user.is_authenticated:
-        return render(request, 'users/create_recipe.html')
+        return render(request, 'users/recipe_form.html')
     return redirect('index')
 
 
