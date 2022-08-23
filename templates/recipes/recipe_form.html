@@ -32,15 +32,19 @@
                            </div>
                            <div class="col-12">
                                <label for="ingredients"><b>Ingredientes</b></label>
-                               <textarea class="form-control" name="ingredients" cols="30" rows="10" placeholder="Ex. 2 Limões &#10;200ml de água" required>
-                                {{ recipe.ingredients }}
-                               </textarea>
+                               <textarea class="form-control" 
+                                         name="ingredients" 
+                                         cols="30" rows="10" 
+                                         placeholder="Ex. 2 Limões &#10;200ml de água" 
+                                         required>{{ recipe.ingredients }}</textarea>
                            </div>
                            <div class="col-12">
                                <label for="method_preparation"><b>Modo de preparo</b></label>
-                               <textarea class="form-control" name="method_preparation" cols="30" rows="10" placeholder="Ex. Corte o limão com cuidado e exprema no copo  &#10;Misture com a água e sirva." required>
-                                {{ recipe.method_preparation }}
-                               </textarea>
+                               <textarea class="form-control" 
+                                         name="method_preparation" 
+                                         cols="30" rows="10" 
+                                         placeholder="Ex. Corte o limão com cuidado e exprema no copo  &#10;Misture com a água e sirva." 
+                                         required>{{ recipe.method_preparation }}</textarea>
                            </div>
                            <div class="col-12 col-lg-{% if recipe %}4{% else %}3{% endif %}">
                                <label for="cooking_time"><b>Tempo de preparo (minutos)</b></label>

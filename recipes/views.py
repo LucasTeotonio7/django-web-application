@@ -9,13 +9,13 @@ def index(request):
         recipes = recipes.filter(name__icontains=request.GET['search'])
     data = {'recipes' : recipes}
 
-    return render(request, 'index.html', context=data)
+    return render(request, 'recipes/index.html', context=data)
 
 
 def recipe_detail(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     data = {'recipe' : recipe}
-    return render(request, 'recipes.html', context=data)
+    return render(request, 'recipes/recipes.html', context=data)
 
 
 def recipe_create(request):
@@ -40,7 +40,7 @@ def recipe_create(request):
 
 
     if request.method == 'GET' and request.user.is_authenticated:
-        return render(request, 'users/recipe_form.html')
+        return render(request, 'recipes/recipe_form.html')
     return redirect('index')
 
 
@@ -59,7 +59,7 @@ def recipe_update(request, pk):
         recipe.save()
         return redirect('users_dashboard')
     if request.method == 'GET' and request.user.is_authenticated:
-        return render(request, 'users/recipe_form.html', context=data)
+        return render(request, 'recipes/recipe_form.html', context=data)
     return redirect('index')
 
 
