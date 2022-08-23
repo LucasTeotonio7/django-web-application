@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from recipes.models import Recipe
 
 
@@ -7,8 +9,10 @@ def index(request):
     recipes = Recipe.objects.filter(published=True).order_by('-created_at')
     if 'search' in request.GET:
         recipes = recipes.filter(name__icontains=request.GET['search'])
-    data = {'recipes' : recipes}
-
+    paginator = Paginator(recipes, 3)
+    page = request.GET.get('page')
+    recipes_per_page = paginator.get_page(page)
+    data = {'recipes' : recipes_per_page}
     return render(request, 'recipes/index.html', context=data)
 
 
